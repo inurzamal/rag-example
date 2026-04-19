@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: spring-ai-LLM
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: JDBC:mysql://localhost:3306/genai
+    username: pwd
+    password: pwd
+    Hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 600000 # 10 minutes
+      connection-timeout: 30000 # 30 seconds
+      max-lifetime: 1800000 # 30 minutes
+
+  ai:
+    vectorstore:
+      qdrant:
+        initialize-schema: true
+        host: localhost
+        port: 6334
+        collection-name: kb-collection
+    openai:
+      api-key: xxxx
+
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: ALWAYS
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: llama3.2:1b
+
+    google:
+      genai:
+        api-key: xxxx
+        chat:
+          options:
+            model: gemini-2.5-flash-lite
+
+logging:
+  level:
+    org.springframework.ai.chat.memory: DEBUG
+    org.springframework.ai.chat.client.advisor: DEBUG
