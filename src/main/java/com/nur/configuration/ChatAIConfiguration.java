@@ -34,19 +34,50 @@ public class ChatAIConfiguration {
                 .build();
     }
 
+//    @Bean
+//    @Primary
+//    public ChatClient geminiChatClient(GoogleGenAiChatModel googleGenAiChatModel, ChatMemory chatMemory) {
+//
+//        Advisor loggerAdvisor = new SimpleLoggerAdvisor();
+//
+//        Advisor memoryAdvisor = MessageChatMemoryAdvisor
+//                .builder(chatMemory)
+//                .build();
+//
+//        return ChatClient.builder(googleGenAiChatModel)
+//                .defaultAdvisors(List.of(memoryAdvisor, loggerAdvisor))
+//                .build();
+//    }
+
     @Bean
     @Primary
-    public ChatClient geminiChatClient(GoogleGenAiChatModel googleGenAiChatModel, ChatMemory chatMemory) {
-
-        Advisor loggerAdvisor = new SimpleLoggerAdvisor();
-
-        Advisor memoryAdvisor = MessageChatMemoryAdvisor
-                .builder(chatMemory)
-                .build();
-
+    public ChatClient geminiChatClient(GoogleGenAiChatModel googleGenAiChatModel) {
         return ChatClient.builder(googleGenAiChatModel)
-                .defaultAdvisors(List.of(memoryAdvisor, loggerAdvisor))
+                .defaultSystem("""
+                    You are a helpful assistant for TechNova Solutions.
+                    
+                    You have two sources of information — use BOTH:
+                    
+                    1. DOCUMENT CONTEXT: Chunks from company documents injected into this prompt.
+                       Use these to answer questions about TechNova products, HR policies, etc.
+                    
+                    2. CONVERSATION HISTORY: Previous messages in this conversation.
+                       Use these to answer personal questions like the user's name, 
+                       or anything the user mentioned earlier in the chat.
+                    
+                    Rules:
+                    - If the answer is in document context → answer from documents.
+                    - If the answer is in conversation history → answer from history.
+                    - If the answer is in neither → say "I don't have that information."
+                    - Never ignore conversation history when answering personal questions.
+                    """)
                 .build();
+    }
+
+    @Bean
+    @Primary
+    public EmbeddingModel embeddingModel(GoogleGenAiTextEmbeddingModel model) {
+        return model;
     }
 
 //    @Bean
@@ -54,11 +85,5 @@ public class ChatAIConfiguration {
 //    public EmbeddingModel embeddingModel(OpenAiEmbeddingModel model) {
 //        return model;
 //    }
-
-    @Bean
-    @Primary
-    public EmbeddingModel embeddingModel(GoogleGenAiTextEmbeddingModel model) {
-        return model;
-    }
 
 }
