@@ -1,0 +1,7 @@
+docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
+
+
+Chat -> Gemini
+Embedding -> OpenAI
+Vector DB -> Qdrant
+Memory -> JDBC
