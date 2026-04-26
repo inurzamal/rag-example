@@ -102,7 +102,7 @@ public class IngestionService implements CommandLineRunner {
                 .withChunkSize(512)
                 .withMinChunkSizeChars(64)
                 .withMinChunkLengthToEmbed(5)
-                .withMaxNumChunks(10000)
+                .withMaxNumChunks(1000)
                 .withKeepSeparator(true)
                 .build();
     }
