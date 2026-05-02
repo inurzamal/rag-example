@@ -20,7 +20,7 @@ spring:
         initialize-schema: true
         host: localhost
         port: 6334
-        collection-name: kb-collection
+        collection-name: kb-collection-v2
     openai:
       api-key: xxxx
 
@@ -46,3 +46,7 @@ logging:
   level:
     org.springframework.ai.chat.memory: DEBUG
     org.springframework.ai.chat.client.advisor: DEBUG
+
+app:
+  rag:
+    docs-path: classpath:pdf/
