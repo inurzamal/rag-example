@@ -1,7 +1,17 @@
-docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
-
-
+What we are using:
+------------------
 Chat -> Gemini
 Embedding -> Gemini
 Vector DB -> Qdrant
 Memory -> JDBC
+
+---------------------------------------------
+
+Steps to run this application:
+------------------------------
+1. open Docker Desktop
+2. run following command in terminal to start Qdrant container:
+docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
+3. (Optional) In the browser: http://localhost:6333/dashboard#/collections
+4. Start The Application
+5. Test using Swagger UI: http://localhost:8080/swagger-ui/index.html#/
